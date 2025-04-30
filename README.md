@@ -10,12 +10,13 @@ A simple full-CRUD to-do list built with **Next.js** and **TypeScript**.
 - ✅ Remove (Delete) tasks
 - ✅ Responsive design with Tailwind CSS
 - ✅ Written in TypeScript using the Next.js App Router
+- ✅ Client-side interactivity with React hooks
 
 ## 📦 Tech Stack
 
-- [Next.js](https://nextjs.org)
-- [TypeScript](https://www.typescriptlang.org/)
-- [Tailwind CSS](https://tailwindcss.com)
+- [Next.js](https://nextjs.org) – A React framework for building static and dynamic websites
+- [TypeScript](https://www.typescriptlang.org/) – A typed superset of JavaScript that compiles to plain JavaScript
+- [Tailwind CSS](https://tailwindcss.com) – A utility-first CSS framework for rapidly building custom designs
 
 ## 📂 Project Structure
 
@@ -23,26 +24,23 @@ A simple full-CRUD to-do list built with **Next.js** and **TypeScript**.
 my-todolist-frontend/
 ├── app/
 │   └── page.tsx      # Main UI with full CRUD functionality
-├── public/           # Static assets
-├── styles/           # Global styles (optional)
+├── public/           # Static assets (e.g., images, icons)
+├── styles/           # Global styles (optional, if used)
 ├── README.md         # You're reading it!
-└── ...
+└── package.json      # Dependencies and project configuration
 🛠️ Getting Started
-Clone the repo
-
+Clone the repository:
 bash
 Copy
 Edit
 git clone https://github.com/your-username/my-todolist-frontend.git
 cd my-todolist-frontend
-Install dependencies
-
+Install dependencies:
 bash
 Copy
 Edit
 npm install
-Run the development server
-
+Run the development server:
 bash
 Copy
 Edit
@@ -50,32 +48,28 @@ npm run dev
 Open http://localhost:3000 to view the app in your browser.
 
 🧪 Usage
-Type a new task and click Add
+Type a new task in the input field and click the Add button to add it to your list.
 
-Click Edit to modify an existing task
+Click the Edit button to modify an existing task.
 
-Press Enter to save or Escape to cancel edits
+Press Enter to save or Escape to cancel the edit.
 
-Click Delete to remove a task
+Click the Delete button to remove a task from the list.
 
 📄 License
 MIT — feel free to use and modify!
 
 🧠 Notes
-Don’t forget to commit changes with clear messages:
+Ensure to commit your changes with clear messages. For example:
 
 bash
 Copy
 Edit
 git commit -m "Added edit functionality to to-do list"
+The app allows client-side interactivity, such as editing and deleting tasks, using React hooks like useState.
+
 🙌 Acknowledgements
 Created using Next.js and inspired by common task manager UIs.
-
-yaml
-Copy
-Edit
-
----
 
 
 

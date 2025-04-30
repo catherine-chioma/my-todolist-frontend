@@ -1,5 +1,7 @@
 'use client';
-import { useState } from 'react';
+
+import { useState, useEffect } from 'react';
+import axios from 'axios'; // You can also use fetch if you prefer
 
 interface Todo {
   id: number;
@@ -11,19 +13,52 @@ export default function Home() {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [newTodo, setNewTodo] = useState('');
 
-  const addTodo = () => {
+  // Fetch todos from the backend on initial load
+  useEffect(() => {
+    const fetchTodos = async () => {
+      try {
+        const response = await axios.get('http://localhost:5000/api/todos');
+        const fetchedTodos = response.data; // Assuming the data is in an array of todos
+        setTodos(fetchedTodos);
+      } catch (error) {
+        console.error('Error fetching todos:', error);
+      }
+    };
+
+    fetchTodos();
+  }, []); // Empty dependency array means this runs once when the component mounts
+
+  const addTodo = async () => {
     if (!newTodo.trim()) return;
+
     const newTask: Todo = {
-      id: Date.now(),
+      id: Date.now(), // Temporary ID, your backend will assign its own ID
       text: newTodo.trim(),
       isEditing: false,
     };
-    setTodos([newTask, ...todos]);
-    setNewTodo('');
+
+    try {
+      // Post the new todo to the backend
+      const response = await axios.post('http://localhost:5000/api/todos', {
+        title: newTask.text,
+        completed: false,
+      });
+      // Add the new todo to the local state if successful
+      setTodos([response.data, ...todos]);
+      setNewTodo('');
+    } catch (error) {
+      console.error('Error adding todo:', error);
+    }
   };
 
-  const deleteTodo = (id: number) => {
-    setTodos(todos.filter(todo => todo.id !== id));
+  const deleteTodo = async (id: number) => {
+    try {
+      await axios.delete(`http://localhost:5000/api/todos/${id}`);
+      // Remove the deleted todo from local state
+      setTodos(todos.filter(todo => todo.id !== id));
+    } catch (error) {
+      console.error('Error deleting todo:', error);
+    }
   };
 
   const startEditing = (id: number) => {
@@ -38,10 +73,19 @@ export default function Home() {
     ));
   };
 
-  const updateTodo = (id: number, newText: string) => {
-    setTodos(todos.map(todo =>
-      todo.id === id ? { ...todo, text: newText, isEditing: false } : todo
-    ));
+  const updateTodo = async (id: number, newText: string) => {
+    try {
+      const response = await axios.put(`http://localhost:5000/api/todos/${id}`, {
+        title: newText,
+        completed: false, // Adjust if you want to update completion status as well
+      });
+
+      setTodos(todos.map(todo =>
+        todo.id === id ? { ...todo, text: newText, isEditing: false } : todo
+      ));
+    } catch (error) {
+      console.error('Error updating todo:', error);
+    }
   };
 
   return (
@@ -90,5 +134,4 @@ export default function Home() {
     </div>
   );
 }
-
 
